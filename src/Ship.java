@@ -49,8 +49,8 @@ public class Ship {
     @Override
     public String toString() {
         return "Ship{" +
-                "weight=" + weight +
-                ", name='" + name + '\'' +
+                "name=" + name +
+                ", weight='" + weight + '\'' +
                 '}';
     }
 }

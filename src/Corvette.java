@@ -50,9 +50,10 @@ public class Corvette extends Ship{
 
     @Override
     public String toString() {
-        String res = super.toString();
-        return "Corvette{" + res +
-                "numberOfGuns=" + numberOfGuns +
+        return "Corvette{" +
+                "name=" + getName() +
+                ", weight=" + getWeight() +
+                ", numberOfGuns=" + numberOfGuns +
                 ", purpose='" + purpose + '\'' +
                 '}';
     }

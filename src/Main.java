@@ -127,7 +127,7 @@ public class Main {
      * Выводит в консоль меню добавления предмета мебели
      */
     public static void printShipMenu(){
-        System.out.println("--------------------FURNITURE---------------------");
+        System.out.println("----------------------SHIP------------------------");
         System.out.println("1 - add a ship");
         System.out.println("2 - add a steamship");
         System.out.println("3 - add a sailboat");
@@ -145,32 +145,35 @@ public class Main {
      * @param type тип объекта 4 - стул, 5 - стол, 6 - гардеробный шкаф
      * @return созданный предмет мебели
      */
-    public static Ship createNewFurniture(int type){
+    public static Ship createNewShip(int type){
         Ship newShip = null;
         System.out.println("Please, enter a weight");
         double weight = inputDouble(100000);
         System.out.println("Please, enter a ship name");
         String name = inputString();
-        if(type == 4){
-            System.out.println("Please, enter a number of legs");
-            int legs = getPositiveNumber(10);
-            System.out.println("Please, enter a chair type");
-            String chairType = inputString();
-            newShip = new Steamship(weight, material, legs, chairType);
-        }
-        else if (type == 5){
-            System.out.println("Please, enter a number of persons");
-            int persons = getPositiveNumber(100);
-            System.out.println("Please, enter a tabletop shape");
-            String tabletopShape = inputString();
-            newShip = new Sailboat(weight, material, persons, tabletopShape);
+        if(type == 5){
+            newShip = new Ship(weight, name);
         }
         else if (type == 6){
-            System.out.println("Please, enter a wardrobe height");
-            double height = inputDouble(3);
-            System.out.println("Please, enter a wardrobe purpose");
+            System.out.println("Please, enter a turbine power");
+            double turbinePower = inputDouble(1000);
+            System.out.println("Please, enter a cargo type");
+            String cargoType = inputString();
+            newShip = new Steamship(weight, name, turbinePower, cargoType);
+        }
+        else if (type == 7){
+            System.out.println("Please, enter a number of sails");
+            int number = getPositiveNumber(50);
+            System.out.println("Please, enter a sail color");
+            String sailColor = inputString();
+            newShip = new Sailboat(weight, name, number, sailColor);
+        }
+        else if (type == 8){
+            System.out.println("Please, enter a number of guns");
+            int number = getPositiveNumber(1000);
+            System.out.println("Please, enter a corvette purpose");
             String purpose = inputString();
-            newShip = new Corvette(weight, material, height, purpose);
+            newShip = new Corvette(weight, name, number, purpose);
         }
         return newShip;
     }
@@ -182,11 +185,11 @@ public class Main {
         printShipMenu();
         int command = getCommand();
         switch (command){
-            case 1 -> listOfShips.add(new Chair());
-            case 2 -> listOfShips.add(new Table());
-            case 3 -> listOfShips.add(new Wardrobe());
+            case 1 -> listOfShips.add(new Ship());
+            case 2 -> listOfShips.add(new Steamship());
+            case 3 -> listOfShips.add(new Sailboat());
             case 4 -> listOfShips.add(new Corvette());
-            case 5, 6, 7, 8 -> listOfShips.add(createNewFurniture(command));
+            case 5, 6, 7, 8 -> listOfShips.add(createNewShip(command));
             case 9 -> System.out.println("Successfully quited");
             default -> System.out.println("Wrong command!");
         }
@@ -195,41 +198,41 @@ public class Main {
     /**
      * Выводит список всей мебели с её характеристиками
      */
-    public static void printFurniture(){
+    public static void printShip(){
         int id = 1;
-        System.out.println("---------------------------------FURNITURE------------------------------------");
+        System.out.println("-----------------------------------SHIP--------------------------------------");
         if (listOfShips.isEmpty()){
-            System.out.println("There are no furniture yet");
+            System.out.println("There are no ships yet");
         }
         else {
-            for(Furniture item : listOfShips){
+            for(Ship item : listOfShips){
                 System.out.println(id + ")  " + item);
                 id++;
             }
         }
-        System.out.println("------------------------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------");
     }
 
     /**
      * Сравнивает два предмета мебели и выводит в консоль сообщение о результате сравнения
      */
-    public static void compareFurniture(){
+    public static void compareShips(){
         if(listOfShips.size() < 2){
             System.out.println("Too few items to compare");
         }
         else {
-            printFurniture();
+            printShip();
             int maxValue = listOfShips.size();
             System.out.print("Please, enter 1 furniture ID\n");
             int furnitureId1 = getPositiveNumber(maxValue);
-            Furniture furniture1 = listOfShips.get(furnitureId1 - 1);
+            Ship ship1 = listOfShips.get(furnitureId1 - 1);
             System.out.print("Please, enter 2 furniture ID\n");
-            int furnitureId2 = getPositiveNumber(maxValue);
-            Furniture furniture2 = listOfShips.get(furnitureId2 - 1);
-            if (furnitureId1 == furnitureId2){
+            int ship2 = getPositiveNumber(maxValue);
+            Ship furniture2 = listOfShips.get(ship2 - 1);
+            if (furnitureId1 == ship2){
                 System.out.println("You are truing to compare an object with itself");
             }
-            else if (furniture1.equals(furniture2)){
+            else if (ship1.equals(furniture2)){
                 System.out.println("This objects are equals");
             }
             else {
@@ -241,16 +244,16 @@ public class Main {
     /**
      * Удаляет предмет мебели, имеющий определённый номер
      */
-    public static void deleteFurniture(){
+    public static void deleteShip(){
         if(listOfShips.size() < 1){
             System.out.println("Nothing to delete");
         }
         else {
-            printFurniture();
+            printShip();
             int maxValue = listOfShips.size();
             System.out.print("Please, enter furniture ID\n");
-            int furniture = getPositiveNumber(maxValue);
-            listOfShips.remove(furniture);
+            int ship = getPositiveNumber(maxValue);
+            listOfShips.remove(ship);
             System.out.println("Item was successfully deleted!");
         }
     }
@@ -262,14 +265,14 @@ public class Main {
     public static void main(String[] args) {
         listOfShips = new ArrayList<>();
         boolean end = false;
-        while(! end){
+        while(!end){
             printMenu();
             int command = getCommand();
             switch (command){
                 case 1 -> addShip();
-                case 2 -> deleteFurniture();
-                case 3 -> printFurniture();
-                case 4 -> compareFurniture();
+                case 2 -> deleteShip();
+                case 3 -> printShip();
+                case 4 -> compareShips();
                 case 5 -> end = true;
                 default -> System.out.println("Wrong command!");
             }

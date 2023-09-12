@@ -50,9 +50,10 @@ public class Steamship extends Ship{
 
     @Override
     public String toString() {
-        String res = super.toString();
-        return "Steamship{" + res +
-                "turbinePower=" + turbinePower +
+        return "Steamship{" +
+                "name=" + getName() +
+                ", weight=" + getWeight() +
+                ", turbinePower=" + turbinePower +
                 ", cargoType='" + cargoType + '\'' +
                 '}';
     }

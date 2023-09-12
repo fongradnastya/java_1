@@ -49,9 +49,10 @@ public class Sailboat extends Ship{
 
     @Override
     public String toString() {
-        String res = super.toString();
-        return "Sailboat{" + res +
-                "numberOfSails=" + numberOfSails +
+        return "Sailboat{" +
+                "name=" + getName() +
+                ", weight=" + getWeight() +
+                ", numberOfSails=" + numberOfSails +
                 ", sailColor='" + sailColor + '\'' +
                 '}';
     }
