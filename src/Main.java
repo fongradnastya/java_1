@@ -15,7 +15,7 @@ public class Main {
      */
     private final static Scanner scanner = new Scanner(System.in);
 
-    /*
+    /**
      * Считывает строку, содержащую одно число типа int
      * @return number - считанное целое число
      */
