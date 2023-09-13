@@ -20,8 +20,8 @@ public class Main {
      * @return number - считанное целое число
      */
     public static int getIntString() {
-        int number = 0;
-        while (number == 0)
+        Integer number = null;
+        while (number == null)
         {
             if(scanner.hasNext()){
                 String line = scanner.nextLine();
@@ -32,12 +32,13 @@ public class Main {
                 catch (NumberFormatException e)
                 {
                     System.out.println("Wrong number format!");
-                    return 0;
+                    number = null;
                 }
             }
         }
         return number;
     }
+
 
     /**
      * Считывает комманду из консоли
@@ -55,20 +56,25 @@ public class Main {
      */
     public static int getPositiveNumber(int maxValue){
         if (maxValue < 1) return 0;
-        int number = 0;
-        while(number < 1){
+        Integer number = null;
+        while(number == null || number < 1){
             System.out.print("You value: ");
             number = getIntString();
-            if(number < 1){
-                System.out.println("This value should be positive!");
+            if (number == null){
+                System.out.println("Wrong number!");
             }
-            if(number > maxValue){
-                number = 0;
-                System.out.printf("This value should be lover then %d\n", maxValue + 1);
+            else if(number < 1){
+                System.out.println("This value should be positive!");
+                number = null;
+            }
+            else if(number > maxValue){
+                number = null;
+                System.out.printf("This value should be lower than %d\n", maxValue + 1);
             }
         }
         return number;
     }
+
 
     /**
      * Считывает из консоли дробное число в диапазоне от 0 до maxValue
@@ -77,8 +83,8 @@ public class Main {
      */
     public static double inputDouble(double maxValue){
         if (maxValue < 1) return 0;
-        double number = 0;
-        while (number == 0)
+        Double number = null;
+        while (number == null)
         {
             System.out.print("You value: ");
             if(scanner.hasNext()){
@@ -91,15 +97,17 @@ public class Main {
                 catch (NumberFormatException e)
                 {
                     System.out.println("Wrong number format!");
+                    number = null;
                 }
-                if (number < 0 || number > maxValue){
-                    number = 0;
+                if (number != null && (number <= 0 || number > maxValue)){
+                    number = null;
                     System.out.printf("This value should be between 0 and %f\n", maxValue);
                 }
             }
         }
         return number;
     }
+
 
     /**
      * Считывает из консоли название фильма
